@@ -1,16 +1,20 @@
-import React, { Component } from 'react';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
 
-import {NavLink, Route} from "react-router-dom"
+import { NavLink, Route, withRouter } from "react-router-dom";
 
-
-import JokesList from "./components/JokesList"
-import Login from "./components/Login"
-import Register from './components/Register'
-
-
+import JokesList from "./components/JokesList";
+import Login from "./components/Login";
+import Register from "./components/Register";
 
 class App extends Component {
+  logout = e => {
+    e.preventDefault();
+
+    localStorage.removeItem("jwt");
+    this.props.history.push("/login");
+  };
+
   render() {
     return (
       <div className="App">
@@ -18,6 +22,7 @@ class App extends Component {
           <NavLink to="/login">Login</NavLink>
           <NavLink to="/register">Register</NavLink>
           <NavLink to="/jokes">Users</NavLink>
+          <button onClick={this.logout}>Log Out</button>
         </div>
 
         <div>
@@ -30,4 +35,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);
